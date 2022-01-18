@@ -1,10 +1,17 @@
 import React from 'react';
+import {
+  Card, Charts, Footer, Header, Hero,
+} from './components';
 
 function App() {
   return (
-    <div>
-      <h1>App component</h1>
-    </div>
+    <>
+      <Card />
+      <Charts />
+      <Footer />
+      <Header />
+      <Hero />
+    </>
   );
 }
 
