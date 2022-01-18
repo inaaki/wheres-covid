@@ -1,7 +1,11 @@
 import React from 'react';
 
 function Footer() {
-  return <h1>Footer component</h1>;
+  return (
+    <footer style={{ padding: '1rem', textAlign: 'center' }}>
+      <p>&copy; All rights reserved 2022.</p>
+    </footer>
+  );
 }
 
 export default Footer;

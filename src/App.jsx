@@ -1,17 +1,9 @@
 import React from 'react';
-import {
-  Card, Charts, Footer, Header, Hero,
-} from './components';
+import Layout from './components/Layout';
 
 function App() {
   return (
-    <>
-      <Card />
-      <Charts />
-      <Footer />
-      <Header />
-      <Hero />
-    </>
+    <Layout />
   );
 }
 

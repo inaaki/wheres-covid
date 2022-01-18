@@ -1,0 +1,11 @@
+.header {
+  text-align: center;
+  margin: 0 auto 0;
+}
+
+.logo {
+  color: white;
+  font-family: 'Rubik Beastly', cursive;
+  font-size: 3.2rem;
+  text-transform: capitalize;
+}

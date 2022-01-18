@@ -1,11 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Beastly&display=swap');
+
+:root {
+  font-size: 62.5%;
+}
+
 *,
 *::before,
 *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  background: #0f0e0e;
+  background: #190827;
+  color: white;
+  font-size: 1.4rem;
+  line-height: 1.5;
 }
