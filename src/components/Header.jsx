@@ -1,13 +1,22 @@
 import React from 'react';
-import styles from '../styles/Header.module.css';
+import styled from 'styled-components';
+
+const StyledHeader = styled.header`
+  text-align: center;
+  margin: 0 auto;
+`;
+const LogoWrapper = styled.span`
+  color: white;
+  font-family: 'Rubik Beastly', cursive;
+  font-size: 3.2rem;
+  text-transform: capitalize;
+`;
 
 function Header() {
   return (
-    <header className={styles.header}>
-      <span className={styles.logo}>
-        where&apos;s corona?
-      </span>
-    </header>
+    <StyledHeader>
+      <LogoWrapper>where&apos;s corona?</LogoWrapper>
+    </StyledHeader>
   );
 }
 
