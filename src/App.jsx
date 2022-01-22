@@ -1,12 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Charts, Hero, Layout } from './components';
+import { Hero, Layout } from './components';
 
 const Wrapper = styled.div`
   height: 100%;
-  background-color: #1a7c7c;
-  display: grid;
-  place-items: center;
 `;
 
 function App() {
@@ -14,7 +11,7 @@ function App() {
     <Layout>
       <Wrapper>
         <Hero />
-        <Charts />
+        {/* <Charts /> */}
       </Wrapper>
     </Layout>
   );

@@ -2,29 +2,30 @@ import styled from 'styled-components';
 
 // css variables
 export const cardSize = 20;
+
 export const Card = styled.div.attrs((props) => ({
   color: props.color || 'black',
 }))`
   align-items: center;
   background-color: white;
   border-radius: 50%;
-  border: 0.4rem solid ${(props) => props.color};
+  border: .65rem solid ${(props) => props.color};
+  box-sizing: content-box;
   color: ${(props) => props.color};
-  display: flex;
+  display: inline-flex;
   font-size: 5rem;
   height: ${`${cardSize}rem`};
   justify-content: center;
   padding: 1rem;
   width: ${`${cardSize}rem`};
+  position: relative;
 
   &.left {
-    margin: 5% 3.5% 0 0;
+    top: 5rem;
+    right: 5rem;
   }
   &.right {
-    margin: 5% 0 0 3.5%;
+    top: 5rem;
+    left: 5rem;
   }
-`;
-export const SmallCard = styled(Card)`
-  width: ${`${cardSize / 2}rem`};
-  height: ${`${cardSize / 2}rem`};
 `;

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ChartsStyled = styled.div`
-  border: 1px solid tomato;
   width: 100%;
   max-width: 60rem;
   height: 32rem;

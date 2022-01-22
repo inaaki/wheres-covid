@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
 :root {
   font-size: 62.5%;
+  --col-primary: #1A5F7A;
 }
 
 *,
@@ -14,8 +15,8 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-  background: #190827;
-  color: white;
+  background: #eee;
+  color: var(--col-primary);
   font-size: 1.4rem;
   line-height: 1.5;
 }
