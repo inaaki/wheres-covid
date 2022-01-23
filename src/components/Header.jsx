@@ -7,8 +7,6 @@ const StyledHeader = styled.header`
   padding: 2rem;
 `;
 const LogoWrapper = styled.span`
-  color: var(--col-primary);
-  font-family: 'Rubik Beastly', cursive;
   font-size: 5.4rem;
   line-height: 1;
   text-transform: capitalize;

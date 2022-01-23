@@ -7,9 +7,8 @@ export const Card = styled.div.attrs((props) => ({
   color: props.color || 'black',
 }))`
   align-items: center;
-  background-color: white;
   border-radius: 50%;
-  border: .65rem solid ${(props) => props.color};
+  border: 0.65rem solid ${(props) => props.color};
   box-sizing: content-box;
   color: ${(props) => props.color};
   display: inline-flex;

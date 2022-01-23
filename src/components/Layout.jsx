@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
@@ -24,6 +25,5 @@ function Layout({ children }) {
 export default Layout;
 
 Layout.propTypes = {
-  // eslint-disable-next-line react/require-default-props
   children: PropTypes.node,
 };

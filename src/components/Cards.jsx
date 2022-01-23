@@ -1,16 +1,10 @@
+/* eslint-disable react/require-default-props */
+import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
+import { cardColors } from '../utils/colors';
 import { Card, cardSize } from './Card';
-
-const cardColors = {
-  critical: '#a8353b',
-  newCase: '#ff2626',
-  newDeath: '#404C54',
-  recovery: '#28a0a1',
-  totalCase: '#fe7e6d',
-  totalDeath: '#32343E',
-  totalRecovery: '#358874',
-};
+import ToggleButton from './ToggleButton';
 
 const StyledCards = styled.div`
   width: 100%;
@@ -19,6 +13,13 @@ const StyledCards = styled.div`
   align-items: center;
   padding: 15rem 0 5rem;
   position: relative;
+
+  .toggleBtn {
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
 `;
 
 const ExtraCards = styled.div`
@@ -39,20 +40,25 @@ const ExtraCards = styled.div`
   }
 `;
 
-function Cards() {
+function Cards({ handleTheme }) {
   return (
     <StyledCards>
-      <Card className="left" color={cardColors.totalRecovery} />
-      <Card color={cardColors.totalCase} />
-      <Card className="right" color={cardColors.totalDeath} />
       <ExtraCards>
         <Card color={cardColors.newCase} />
         <Card color={cardColors.recovery} />
         <Card color={cardColors.critical} />
         <Card color={cardColors.newDeath} />
       </ExtraCards>
+      <Card className="left" color={cardColors.totalRecovery} />
+      <Card color={cardColors.totalCase} />
+      <Card className="right" color={cardColors.totalDeath} />
+      <ToggleButton handleTheme={handleTheme} />
     </StyledCards>
   );
 }
 
 export default Cards;
+
+Cards.propTypes = {
+  handleTheme: PropTypes.func,
+};

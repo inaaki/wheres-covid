@@ -3,7 +3,6 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
 :root {
   font-size: 62.5%;
-  --col-primary: #1A5F7A;
 }
 
 *,
@@ -15,10 +14,10 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-  background: #eee;
-  color: var(--col-primary);
+  background: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.font};
   font-size: 1.4rem;
-  line-height: 1.5;
+  line-height: 1.5;font-family: 'Mochiy Pop P One', sans-serif;
 }
 `;
 
