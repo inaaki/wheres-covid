@@ -1,30 +1,29 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/prop-types */
+import React from 'react';
 import styled from 'styled-components';
 
 // css variables
 export const cardSize = 20;
 
-export const Card = styled.div.attrs((props) => ({
+export const StyledCard = styled.div.attrs((props) => ({
   color: props.color || 'black',
 }))`
   align-items: center;
   border-radius: 50%;
   border: 0.65rem solid ${(props) => props.color};
   box-sizing: content-box;
-  color: ${(props) => props.color};
+  color: ${(props) => props.theme.font};
   display: inline-flex;
-  font-size: 5rem;
   height: ${`${cardSize}rem`};
   justify-content: center;
   padding: 1rem;
   width: ${`${cardSize}rem`};
   position: relative;
-
-  &.left {
-    top: 5rem;
-    right: 5rem;
-  }
-  &.right {
-    top: 5rem;
-    left: 5rem;
-  }
 `;
+
+function Card({ children, ...rest }) {
+  return <StyledCard {...rest}>{children}</StyledCard>;
+}
+
+export default Card;

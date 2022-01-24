@@ -1,9 +1,9 @@
-/* eslint-disable react/require-default-props */
+import _lang from 'lodash/lang';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import { cardColors } from '../utils/colors';
-import { Card, cardSize } from './Card';
+import Card, { cardSize, StyledCard } from './Card';
 import ToggleButton from './ToggleButton';
 
 const StyledCards = styled.div`
@@ -22,6 +22,17 @@ const StyledCards = styled.div`
   }
 `;
 
+const MainCards = styled.div`
+  ${StyledCard}:first-child {
+    top: 5rem;
+    right: 5rem;
+  }
+  ${StyledCard}:last-child {
+    top: 5rem;
+    left: 5rem;
+  }
+`;
+
 const ExtraCards = styled.div`
   display: block;
   position: absolute;
@@ -29,29 +40,38 @@ const ExtraCards = styled.div`
   left: 50%;
   transform: translate(-50%, 0);
   width: max-content;
-  ${Card} {
+
+  & ${StyledCard} {
     width: ${`${cardSize / 2}rem`};
     height: ${`${cardSize / 2}rem`};
     margin: 0 2rem;
   }
-  & :first-child,
-  & :last-child {
+
+  ${StyledCard}:first-child,
+  ${StyledCard}:last-child {
     top: 3.5rem;
   }
 `;
 
-function Cards({ handleTheme }) {
+function Cards({ handleTheme, covidInfo }) {
+  if (_lang.isEmpty(covidInfo)) return null;
+
+  // card structure holding property schema
+  const extraInfo = ['recentCase', 'active', 'critical', 'recentDeath'];
+  const netInfo = ['totalRecovery', 'totalCase', 'totalDeath'];
+
+  // card generator
+  const getCards = (arr) =>
+    arr.map((item) => (
+      <Card key={item} color={cardColors[item]}>
+        {covidInfo[item].value}
+      </Card>
+    ));
+
   return (
     <StyledCards>
-      <ExtraCards>
-        <Card color={cardColors.newCase} />
-        <Card color={cardColors.recovery} />
-        <Card color={cardColors.critical} />
-        <Card color={cardColors.newDeath} />
-      </ExtraCards>
-      <Card className="left" color={cardColors.totalRecovery} />
-      <Card color={cardColors.totalCase} />
-      <Card className="right" color={cardColors.totalDeath} />
+      <ExtraCards>{getCards(extraInfo)}</ExtraCards>
+      <MainCards>{getCards(netInfo)}</MainCards>
       <ToggleButton handleTheme={handleTheme} />
     </StyledCards>
   );
@@ -60,5 +80,6 @@ function Cards({ handleTheme }) {
 export default Cards;
 
 Cards.propTypes = {
-  handleTheme: PropTypes.func,
+  covidInfo: PropTypes.objectOf(PropTypes.object).isRequired,
+  handleTheme: PropTypes.func.isRequired,
 };
