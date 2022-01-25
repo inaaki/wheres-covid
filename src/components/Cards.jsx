@@ -56,7 +56,7 @@ const ExtraCards = styled.div`
 function Cards({ handleTheme, covidInfo }) {
   if (_lang.isEmpty(covidInfo)) return null;
 
-  // card structure holding property schema
+  // card structure, holding property schema
   const extraInfo = ['recentCase', 'active', 'critical', 'recentDeath'];
   const netInfo = ['totalRecovery', 'totalCase', 'totalDeath'];
 

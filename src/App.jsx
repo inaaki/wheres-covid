@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { getCountries, getCovidData } from './api';
-import { Hero, Layout } from './components';
+import { Hero, Layout, Loader } from './components';
 import calculateStats from './utils/calculateStat';
 import { darkTheme, lightTheme } from './utils/colors';
 import GlobalStyle from './utils/globalStyles';
@@ -61,7 +61,7 @@ function App() {
 
   return (
     <>
-      {loading && 'Loading...'}
+      {loading && <Loader />}
       {!loading && !err && (
         <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
           <GlobalStyle />

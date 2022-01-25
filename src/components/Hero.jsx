@@ -1,5 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/require-default-props */
+import _lang from 'lodash/lang';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
@@ -33,6 +34,8 @@ function Hero({
   handleCountry,
   handleTheme,
 }) {
+  if (_lang.isEmpty(countries)) return null;
+
   return (
     <Wrapper>
       <Cards covidInfo={covidInfo} handleTheme={handleTheme} />
