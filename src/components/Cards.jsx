@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import { cardColors } from '../utils/colors';
-import Card, { cardSize, StyledCard } from './Card';
+import Card, { cardSize, StyledCard, Value } from './Card';
 import ToggleButton from './ToggleButton';
 
 const StyledCards = styled.div`
@@ -11,7 +11,7 @@ const StyledCards = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15rem 0 5rem;
+  padding: 20rem 0 10rem;
   position: relative;
 
   .toggleBtn {
@@ -23,6 +23,14 @@ const StyledCards = styled.div`
 `;
 
 const MainCards = styled.div`
+  ${Value} {
+    font-size: 2.125em;
+  }
+  ${StyledCard} {
+    &::after {
+      font-size: 1.3em;
+    }
+  }
   ${StyledCard}:first-child {
     top: 5rem;
     right: 5rem;
@@ -63,9 +71,7 @@ function Cards({ handleTheme, covidInfo }) {
   // card generator
   const getCards = (arr) =>
     arr.map((item) => (
-      <Card key={item} color={cardColors[item]}>
-        {covidInfo[item].value}
-      </Card>
+      <Card key={item} color={cardColors[item]} data={covidInfo[item]} />
     ));
 
   return (

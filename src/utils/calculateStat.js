@@ -8,11 +8,13 @@ const covidSchema = {
   },
   recentCase: {
     value: 0,
-    label: 'new case',
+    label: 'recently infected',
+    recent: true,
   },
   recentDeath: {
     value: 0,
     label: 'recent death',
+    recent: true,
   },
   active: {
     value: 0,

@@ -17,11 +17,11 @@ export const cardColors = {
 export const lightTheme = {
   body: colorPalette.bgLight,
   font: colorPalette.primary,
-  shadow: colorPalette.bgDark,
+  border: colorPalette.bgDark,
 };
 
 export const darkTheme = {
   body: colorPalette.bgDark,
   font: colorPalette.primary,
-  shadow: colorPalette.bgLight,
+  border: colorPalette.bgLight,
 };

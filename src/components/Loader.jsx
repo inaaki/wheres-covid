@@ -1,7 +1,8 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
 
 const ballSize = 10;
+// keyframe animation for loader component
 const blink = keyframes`
   from {
     transform: scale(0.5);
@@ -11,13 +12,20 @@ const blink = keyframes`
   }
 `;
 
-const Container = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+const GlobalStyle = createGlobalStyle`
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+`;
+
+const LoaderWrapper = styled.div`
+  align-items: center;
   display: flex;
   gap: ${ballSize / 2}px;
+  justify-content: center;
+  min-height: 100vh;
 
   & :nth-child(1) {
     background-color: #e15b64;
@@ -49,11 +57,14 @@ const Ball = styled.div`
 
 export default function Loader() {
   return (
-    <Container>
-      <Ball />
-      <Ball />
-      <Ball />
-      <Ball />
-    </Container>
+    <>
+      <GlobalStyle />
+      <LoaderWrapper>
+        <Ball />
+        <Ball />
+        <Ball />
+        <Ball />
+      </LoaderWrapper>
+    </>
   );
 }
