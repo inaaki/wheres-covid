@@ -55,9 +55,9 @@ const Filter = styled.select`
   transform: translateX(-50%);
 `;
 
-const filterOptions = [10, 30];
-
 function Charts({ currentCountry }) {
+  const FILTER_OPTIONS = [10, 30, 100, 365];
+  const X_AXIS_LIMIT = 30;
   // eslint-disable-next-line no-unused-vars
   const [filter, setFilter] = useState(10);
   const [loading, setLoading] = useState(false);
@@ -94,14 +94,18 @@ function Charts({ currentCountry }) {
               bottom: 0,
             }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid
+              strokeDasharray="3 3"
+              vertical={filter > X_AXIS_LIMIT}
+            />
             <XAxis
-              interval={0}
-              dataKey="date"
               angle={-75}
+              dataKey="date"
               height={130}
-              textAnchor="end"
+              hide={filter > X_AXIS_LIMIT}
+              interval={0}
               reversed
+              textAnchor="end"
             />
             <YAxis />
             <Tooltip />
@@ -123,7 +127,7 @@ function Charts({ currentCountry }) {
             <Legend />
           </LineChart>
           <Filter value={filter} onChange={handleFilter}>
-            {filterOptions.map((option) => (
+            {FILTER_OPTIONS.map((option) => (
               <option key={option} value={option}>
                 Last {option} days
               </option>
@@ -137,9 +141,6 @@ function Charts({ currentCountry }) {
 
 export default Charts;
 
-Charts.defaultProps = {
-  currentCountry: 'all',
-};
 Charts.propTypes = {
-  currentCountry: PropTypes.string,
+  currentCountry: PropTypes.string.isRequired,
 };
