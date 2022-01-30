@@ -1,6 +1,3 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-plusplus */
-/* eslint-disable no-console */
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { calculateToChart } from '../utils/calculate';
@@ -21,7 +18,8 @@ export const getCountries = async () => {
     const response = await axios.get(url, defaultConfig);
     result = response.data.response;
   } catch (e) {
-    console.dir(e.message);
+    // eslint-disable-next-line no-alert
+    alert(e.message);
   }
   return result;
 };
@@ -44,11 +42,11 @@ export const getCovidData = async (country) => {
 };
 
 export const getPerDaysData = async (days, country) => {
-  // creating chart based data structure
+  const targetCountry = country === 'global' ? 'all' : country;
   const chartData = [];
 
   const now = dayjs();
-  for (let i = 0; i < days; i++) {
+  for (let i = 0; i < days; i += 1) {
     const date = now.subtract(i, 'd').format('YYYY-MM-DD');
     //
     // api url
@@ -56,12 +54,13 @@ export const getPerDaysData = async (days, country) => {
     // api parameters
     const parameters = {
       params: {
-        country: country === 'global' ? 'all' : country,
+        country: targetCountry,
         day: date,
       },
     };
     // calling api per days
     try {
+      // eslint-disable-next-line no-await-in-loop
       const response = await axios.get(url, {
         ...defaultConfig,
         ...parameters,
