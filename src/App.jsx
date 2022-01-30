@@ -56,10 +56,7 @@ function App() {
   const handleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
-  const handleCurrentCountry = (country) => {
-    const state = country === 'global' ? null : country;
-    setCurrentCountry(state);
-  };
+  const handleCurrentCountry = (country) => setCurrentCountry(country);
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
