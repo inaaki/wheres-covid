@@ -1,1 +1,1 @@
-export { getCountries, getCovidData } from './coronaData';
+export { getCountries, getCovidData, getPerDaysData } from './coronaData';

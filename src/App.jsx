@@ -1,9 +1,10 @@
 // eslint-disable-next-line consistent-return
+import _lang from 'lodash/lang';
 import React, { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { getCountries, getCovidData } from './api';
-import { Hero, Layout, Loader } from './components';
-import calculateStats from './utils/calculateStat';
+import { getCountries, getCovidData } from './api/coronaData';
+import { Charts, Hero, Layout, Loader } from './components';
+import calculateStats from './utils/calculate';
 import { darkTheme, lightTheme } from './utils/colors';
 import GlobalStyle from './utils/globalStyles';
 
@@ -13,7 +14,7 @@ const Wrapper = styled.div`
 
 function App() {
   const [theme, setTheme] = useState('light');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [err, setErr] = useState('');
 
   // api related data state
@@ -56,30 +57,31 @@ function App() {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
   const handleCurrentCountry = (country) => {
-    setCurrentCountry(country);
+    const state = country === 'global' ? null : country;
+    setCurrentCountry(state);
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <GlobalStyle />
       {loading && <Loader />}
       {!loading && !err && (
-        <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-          <GlobalStyle />
-          <Layout>
-            <Wrapper>
-              <Hero
-                countries={countries}
-                covidInfo={covidInfo}
-                currentCountry={currentCountry}
-                handleCountry={handleCurrentCountry}
-                handleTheme={handleTheme}
-              />
-              {/* <Charts /> */}
-            </Wrapper>
-          </Layout>
-        </ThemeProvider>
+        <Layout>
+          <Wrapper>
+            <Hero
+              countries={countries}
+              covidInfo={covidInfo}
+              currentCountry={currentCountry}
+              handleCountry={handleCurrentCountry}
+              handleTheme={handleTheme}
+            />
+            {!_lang.isEmpty(countries) && !_lang.isEmpty(covidInfo) && (
+              <Charts currentCountry={currentCountry} />
+            )}
+          </Wrapper>
+        </Layout>
       )}
-    </>
+    </ThemeProvider>
   );
 }
 

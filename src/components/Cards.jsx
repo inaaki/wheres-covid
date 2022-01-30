@@ -1,4 +1,3 @@
-import _lang from 'lodash/lang';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
@@ -62,8 +61,6 @@ const ExtraCards = styled.div`
 `;
 
 function Cards({ handleTheme, covidInfo }) {
-  if (_lang.isEmpty(covidInfo)) return null;
-
   // card structure, holding property schema
   const extraInfo = ['recentCase', 'active', 'critical', 'recentDeath'];
   const netInfo = ['totalRecovery', 'totalCase', 'totalDeath'];

@@ -47,3 +47,10 @@ export default function calculateStats(data) {
     return schema;
   }, _lang.cloneDeep(covidSchema));
 }
+
+export const calculateToChart = (obj) => ({
+  date: obj.day,
+  recovered: obj.cases.recovered,
+  total: obj.cases.total,
+  deaths: obj.deaths.total,
+});

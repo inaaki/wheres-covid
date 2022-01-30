@@ -8,6 +8,7 @@ import { Cards } from '.';
 
 const Wrapper = styled.div`
   padding: 4rem 0 0;
+  overflow: hidden;
 `;
 
 const Select = styled.select`
@@ -34,7 +35,7 @@ function Hero({
   handleCountry,
   handleTheme,
 }) {
-  if (_lang.isEmpty(countries)) return null;
+  if (_lang.isEmpty(countries) || _lang.isEmpty(covidInfo)) return null;
 
   return (
     <Wrapper>
@@ -43,7 +44,7 @@ function Hero({
         onChange={(e) => {
           handleCountry(e.currentTarget.value);
         }}
-        value={currentCountry}
+        value={currentCountry || 'global'}
       >
         <option value="global">Global</option>
         {countries.map((country) => (

@@ -18,14 +18,16 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
-`;
+  `;
 
 const LoaderWrapper = styled.div`
+  background: ${(props) => props.theme.body};
   align-items: center;
   display: flex;
   gap: ${ballSize / 2}px;
   justify-content: center;
   min-height: 100vh;
+  width: 100%;
 
   & :nth-child(1) {
     background-color: #e15b64;
@@ -57,14 +59,12 @@ const Ball = styled.div`
 
 export default function Loader() {
   return (
-    <>
+    <LoaderWrapper className="loader">
       <GlobalStyle />
-      <LoaderWrapper>
-        <Ball />
-        <Ball />
-        <Ball />
-        <Ball />
-      </LoaderWrapper>
-    </>
+      <Ball />
+      <Ball />
+      <Ball />
+      <Ball />
+    </LoaderWrapper>
   );
 }
