@@ -11,6 +11,7 @@ const defaultConfig = {
   },
 };
 
+//
 export const getCountries = async () => {
   const url = `${baseUrl}countries`;
   let result = '';
@@ -23,7 +24,7 @@ export const getCountries = async () => {
   }
   return result;
 };
-
+//
 export const getCovidData = async (country) => {
   const url = `${baseUrl}statistics`;
   const parameters = {
@@ -40,7 +41,7 @@ export const getCovidData = async (country) => {
   }
   return result;
 };
-
+//
 export const getPerDaysData = async (days, country) => {
   const targetCountry = country === 'global' ? 'all' : country;
   const chartData = [];
