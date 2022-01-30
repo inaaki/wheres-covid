@@ -101,6 +101,7 @@ function Charts({ currentCountry }) {
               angle={-75}
               height={130}
               textAnchor="end"
+              reversed
             />
             <YAxis />
             <Tooltip />
@@ -115,7 +116,7 @@ function Charts({ currentCountry }) {
               stroke={cardColors.totalRecovery}
             />
             <Line
-              dataKey="death"
+              dataKey="deaths"
               type="monotone"
               stroke={cardColors.totalDeath}
             />
