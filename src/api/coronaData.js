@@ -1,17 +1,12 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-alert */
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { calculateToChart } from '../utils/calculate';
 import client from './client';
 
-const baseUrl = `https://${import.meta.env.VITE_API_HOST}/`;
-
-const defaultConfig = {
-  headers: {
-    'x-rapidapi-host': import.meta.env.VITE_API_HOST,
-    'x-rapidapi-key': import.meta.env.VITE_API_KEY,
-  },
-};
+// extend dayjs with utc plugin
+dayjs.extend(utc);
 
 //
 export const getCountries = async () => {
@@ -45,8 +40,7 @@ export const getCovidData = async (country) => {
 export const getPerDaysData = async (days, country) => {
   const chartData = [];
   //
-
-  const now = dayjs();
+  const now = dayjs().utc();
   for (let i = 0; i < days; i += 1) {
     const date = now.subtract(i, 'd').format('YYYY-MM-DD');
     //
