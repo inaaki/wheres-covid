@@ -49,8 +49,8 @@ export default function calculateStats(data) {
 }
 
 export const calculateToChart = (obj) => ({
-  date: obj.day,
-  recovered: obj.cases.recovered,
-  total: obj.cases.total,
-  deaths: obj.deaths.total,
+  date: obj?.day,
+  recovered: obj?.cases?.recovered,
+  total: obj?.cases?.total,
+  deaths: obj?.deaths?.total,
 });
