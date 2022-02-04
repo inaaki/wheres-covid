@@ -41,10 +41,10 @@ function App() {
   }
   if (loading) {
     return (
-      <>
+      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <GlobalStyle />
         <Loader />
-      </>
+      </ThemeProvider>
     );
   }
   return (
