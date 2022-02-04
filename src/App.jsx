@@ -2,9 +2,9 @@
 import _lang from 'lodash/lang';
 import React, { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { getCountries, getCovidData } from './api/coronaData';
 import { Charts, Hero, Layout, Loader } from './components';
-import calculateStats from './utils/calculate';
+import useCountries from './hooks/useCountries';
+import useCovidInfo from './hooks/useCovidInfo';
 import { darkTheme, lightTheme } from './utils/colors';
 import GlobalStyle from './utils/globalStyles';
 
@@ -13,71 +13,57 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const [theme, setTheme] = useState('light');
-  const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState('');
-
-  // api related data state
   const [currentCountry, setCurrentCountry] = useState('global');
-  const [countries, setCountries] = useState([]);
-  const [covidInfo, setCovidInfo] = useState({});
+  const [theme, setTheme] = useState('light');
+  //
+  const countries = useCountries();
+  const covidInfo = useCovidInfo(currentCountry);
 
-  // getting countries
   useEffect(() => {
     (async () => {
-      try {
-        setLoading(true);
-        const result = await getCountries();
-        setCountries(result);
-        setLoading(false);
-      } catch (e) {
-        setLoading(false);
-        setErr(e.message);
-      }
-    })();
-  }, []);
-
-  // getting total stats
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        const result = await getCovidData(currentCountry);
-        const info = calculateStats(result);
-        setCovidInfo(info);
-        setLoading(false);
-      } catch (e) {
-        setLoading(false);
-        setErr(e.message);
-      }
+      await countries.request();
+      await covidInfo.request();
     })();
   }, [currentCountry]);
-
+  //
+  const loading = countries.loading || covidInfo.loading;
+  const error = countries.error || covidInfo.error;
+  //
+  //
   const handleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
   const handleCurrentCountry = (country) => setCurrentCountry(country);
 
+  //
+  if (error) {
+    return <p>...{JSON.stringify(error)}...</p>;
+  }
+  if (loading) {
+    return (
+      <>
+        <GlobalStyle />
+        <Loader />
+      </>
+    );
+  }
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyle />
-      {loading && <Loader />}
-      {!loading && !err && (
-        <Layout>
-          <Wrapper>
-            <Hero
-              countries={countries}
-              covidInfo={covidInfo}
-              currentCountry={currentCountry}
-              handleCountry={handleCurrentCountry}
-              handleTheme={handleTheme}
-            />
-            {!_lang.isEmpty(countries) && !_lang.isEmpty(covidInfo) && (
-              <Charts currentCountry={currentCountry} />
-            )}
-          </Wrapper>
-        </Layout>
-      )}
+      <Layout>
+        <Wrapper>
+          <Hero
+            countries={countries.data}
+            covidInfo={covidInfo.data}
+            currentCountry={currentCountry}
+            handleCountry={handleCurrentCountry}
+            handleTheme={handleTheme}
+          />
+          {!_lang.isEmpty(countries.data) && !_lang.isEmpty(covidInfo.data) && (
+            <Charts currentCountry={currentCountry} />
+          )}
+        </Wrapper>
+      </Layout>
     </ThemeProvider>
   );
 }
