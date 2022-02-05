@@ -11,7 +11,7 @@ import {
   YAxis,
 } from 'recharts';
 import styled from 'styled-components';
-import { getPerDaysData } from '../api';
+import useChart from '../hooks/useChart';
 import { cardColors } from '../utils/colors';
 import Loader from './Loader';
 
@@ -60,16 +60,12 @@ function Charts({ currentCountry }) {
   const X_AXIS_LIMIT = 30;
   // eslint-disable-next-line no-unused-vars
   const [filter, setFilter] = useState(10);
-  const [loading, setLoading] = useState(false);
-  const [chartData, setChartData] = useState([]);
+
+  const chart = useChart(filter, currentCountry);
 
   useEffect(() => {
     (async function fetchData() {
-      setLoading(true);
-      const result = await getPerDaysData(filter, currentCountry);
-      setChartData(result);
-      setLoading(false);
-      // console.log('result', result);
+      await chart.request();
     })();
   }, [filter]);
 
@@ -78,63 +74,57 @@ function Charts({ currentCountry }) {
     setFilter(value);
   };
 
+  if (chart.error) {
+    return <p>...{chart.error}...</p>;
+  }
+  if (chart.loading) {
+    return (
+      <ChartWrapper>
+        <Loader />;
+      </ChartWrapper>
+    );
+  }
   return (
     <ChartWrapper>
-      {loading && <Loader />}
-      {!loading && (
-        <>
-          <LineChart
-            width={800}
-            height={600}
-            data={chartData}
-            margin={{
-              left: 50,
-              right: 30,
-              top: 0,
-              bottom: 0,
-            }}
-          >
-            <CartesianGrid
-              strokeDasharray="3 3"
-              vertical={filter > X_AXIS_LIMIT}
-            />
-            <XAxis
-              angle={-75}
-              dataKey="date"
-              height={130}
-              hide={filter > X_AXIS_LIMIT}
-              interval={0}
-              reversed
-              textAnchor="end"
-            />
-            <YAxis />
-            <Tooltip />
-            <Line
-              dataKey="total"
-              type="monotone"
-              stroke={cardColors.totalCase}
-            />
-            <Line
-              dataKey="recovered"
-              type="monotone"
-              stroke={cardColors.totalRecovery}
-            />
-            <Line
-              dataKey="deaths"
-              type="monotone"
-              stroke={cardColors.totalDeath}
-            />
-            <Legend />
-          </LineChart>
-          <Filter value={filter} onChange={handleFilter}>
-            {FILTER_OPTIONS.map((option) => (
-              <option key={option} value={option}>
-                Last {option} days
-              </option>
-            ))}
-          </Filter>
-        </>
-      )}
+      <LineChart
+        width={800}
+        height={600}
+        data={chart.data}
+        margin={{
+          left: 50,
+          right: 30,
+          top: 0,
+          bottom: 0,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" vertical={filter > X_AXIS_LIMIT} />
+        <XAxis
+          angle={-75}
+          dataKey="date"
+          height={130}
+          hide={filter > X_AXIS_LIMIT}
+          interval={0}
+          reversed
+          textAnchor="end"
+        />
+        <YAxis />
+        <Tooltip />
+        <Line dataKey="total" type="monotone" stroke={cardColors.totalCase} />
+        <Line
+          dataKey="recovered"
+          type="monotone"
+          stroke={cardColors.totalRecovery}
+        />
+        <Line dataKey="deaths" type="monotone" stroke={cardColors.totalDeath} />
+        <Legend />
+      </LineChart>
+      <Filter value={filter} onChange={handleFilter}>
+        {FILTER_OPTIONS.map((option) => (
+          <option key={option} value={option}>
+            Last {option} days
+          </option>
+        ))}
+      </Filter>
     </ChartWrapper>
   );
 }
