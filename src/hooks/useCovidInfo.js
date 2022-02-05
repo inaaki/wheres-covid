@@ -2,16 +2,13 @@ import { useState } from 'react';
 import client from '../api/client';
 import calculateStats from '../utils/calculate';
 
-//
-const END_URL = '/statistics';
-//
-
 const useCovidInfo = (country) => {
   const [data, setData] = useState();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   const request = async () => {
+    const END_URL = '/statistics';
     const query = {
       params: {
         country: country === 'global' ? null : country,
